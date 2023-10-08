@@ -24,3 +24,32 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+h1 {
+  font-size: 20px;
+}
+
+  ion-title{
+  font-size: 20px;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-right{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.center-left{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+ion-icon {
+  font-size: 24px;
+}
