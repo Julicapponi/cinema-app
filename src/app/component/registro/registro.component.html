@@ -81,7 +81,7 @@
     <ion-row>
       <ion-col size="12" class="ion-no-margin ion-no-padding">
         <ion-item class="field">
-          <ion-input placeholder="Password" [type]="passwordVisible ? 'text' : 'password'"  formControlName="pass"></ion-input>
+          <ion-input placeholder="Password" [type]="passwordVisible ? 'text' : 'password'" (input)="onPasswordInput()"  formControlName="pass"></ion-input>
           <ion-icon *ngIf="passwordHasError('required')" name="close-circle" color="danger" slot="end"></ion-icon>
           <ion-icon *ngIf="passwordHasError('invalidPassword')" name="close-circle" color="danger" slot="end"></ion-icon>
           <ion-icon *ngIf="passwordIsValid()" name="checkmark-circle" color="tertiary" slot="end"></ion-icon>
