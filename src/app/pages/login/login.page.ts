@@ -5,7 +5,6 @@ import {Users} from "../../clases/Users";
 import {Router} from "@angular/router";
 import {Storage} from "@ionic/storage-angular";
 import * as Constants from "../../constants";
-import {AvatarSelectorComponent} from "../../component/avatar-selector/avatar-selector.component";
 
 @Component({
   selector: 'app-login',
