@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {DatabaseService} from "../../services/database.service";
-import {ToastController} from "@ionic/angular";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Platform, ToastController} from "@ionic/angular";
 import {Users} from "../../clases/Users";
 import {Router} from "@angular/router";
+import {Storage} from "@ionic/storage-angular";
+import * as Constants from "../../constants";
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,28 @@ import {Router} from "@angular/router";
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  alertButtons: string[];
-  loginForm: FormGroup;
   TAG = 'LoginPage';
-  private users: Users[];
-  constructor(private formBuilder: FormBuilder, private router: Router, public database:DatabaseService, private toast: ToastController) {
-    this.alertButtons = ['Change'];
+  contactForm!: FormGroup;
+  isLoadingLogin: boolean;
+  passwordVisible = false;
+  constructor(private storage: Storage,private router: Router, private platform: Platform, private fb: FormBuilder, private toast: ToastController) {
+    this.contactForm = this.initForm();
+    this.isLoadingLogin = false;
   }
 
-  ngOnInit() {
+  async ngOnInit(){
+    await this.storage.create();
   }
+
+
+
+  initForm(): FormGroup {
+    return this.fb.group({
+      username: ['', [Validators.required]],
+      pass: ['', [Validators.required]],
+    });
+  }
+
 
   abrirModal() {
 
@@ -31,28 +44,40 @@ export class LoginPage implements OnInit {
   }
 
   async login() {
-    await this.database.getUsers().then(result => {
-      console.log(this.TAG + 'addUser | user result:' + JSON.stringify(result));
-      this.users = result;
-      for (let user of result) {
-        if (user.userName === "Juli" && user.pass === "222") {
-          this.mensaje('Logueado con éxito.', 'success');
-          this.router.navigate(['/principal']);
-          return;
+    let usernameInput = this.contactForm.value.username;
+    let passInput = this.contactForm.value.pass;
+    this.isLoadingLogin = true;
+    setTimeout(async () => {
+      this.isLoadingLogin = false;
+    }, 500);
+    if (this.contactForm.valid) {
+      let storedUsers: Users[];
+      storedUsers = await this.storage.get(Constants.KeyUser);
+      if (storedUsers) {
+        for (const user of storedUsers) {
+          if (usernameInput === user.username && passInput === user.pass) {
+            const message = "User logged"
+            this.dialogMessage(message, "success")
+            this.router.navigate(['/principal'], {replaceUrl: true});
+            return;
+          } else {
+            const message = "User or pass invalid"
+            this.dialogMessage(message, "danger")
+            continue;
+          }
         }
-          continue;
       }
-    }).catch((error) => {
-      console.log(this.TAG + '111 login | error:' + JSON.stringify(error));
-      this.mensaje('Error al loguear: ' + error, 'danger');
-    });
+    } else {
+      const message = "User or pass invalid"
+      this.dialogMessage(message, "danger")
+    }
   }
 
 
-  async mensaje(mensaje:string, color: string){
+  async dialogMessage(message:string, color: string){
     this.toast.create({
-      message: mensaje,
-      color: 'success',
+      message: message,
+      color: color,
       duration: 2000,
       position: 'bottom',
     }).then(toast => {
