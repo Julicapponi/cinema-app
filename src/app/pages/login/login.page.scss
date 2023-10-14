@@ -1,7 +1,3 @@
-.button-login{
-  width: 50%;
-}
-
 .content-login{
   display: flex;
   justify-content: center;
@@ -17,7 +13,9 @@
 ion-input{
  text-align: center;
 }
-
+.row-button-login{
+  margin: 30px 30px 10px 30px;
+}
 ion-avatar{
   width: 115px;
   height: 115px;

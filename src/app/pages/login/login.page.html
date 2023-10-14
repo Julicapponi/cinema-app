@@ -46,9 +46,11 @@
           </ion-col>
         </ion-row>
 
-        <ion-row>
-          <ion-col class="ion-no-margin ion-no-padding center" size="12">
-            <ion-button class="button-login" type="submit" shape="round" [color]="contactForm.valid ? 'success' : 'medium'" color="medium" class="center">Login</ion-button>
+        <ion-row class="row-button-login">
+          <ion-col size="12" class="ion-no-margin ion-no-padding">
+              <ion-button  type="submit" shape="round"
+                           [color]="contactForm.valid ? 'success' : 'medium'" color="medium" class="center">Login
+              </ion-button>
           </ion-col>
         </ion-row>
       </form>
@@ -57,7 +59,7 @@
 
       <ion-row>
         <ion-col [routerLink]="['/registro']" class="ion-no-margin ion-no-padding center" size="12">
-          <p>Create account</p>
+          <p class="ion-no-margin ion-no-padding">Create account</p>
         </ion-col>
       </ion-row>
     </ion-col>
