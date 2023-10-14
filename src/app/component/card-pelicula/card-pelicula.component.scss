@@ -1,3 +1,27 @@
-.item{
+ion-item{
+  height: 170px;
   background-color: var(--ion-color-step-350);
+}
+.item-card::part(native){
+  height: 170px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.item-movie{
+  height: 170px;
+}
+
+.custom-card {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+
+
+ion-row::after {
+  clear: both;
+  content: "";
+  display: table;
 }
