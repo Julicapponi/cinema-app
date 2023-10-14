@@ -33,8 +33,7 @@ export class RegistroComponent  implements OnInit {
     });
   }
 
-
-  //////////////////////////////////////////////////////// NAME VALIDACIONES
+  //Name Validations
   nameValidator(control: AbstractControl) {
     const name = control.value;
     if (name && ( /[^a-zA-Z]/.test(name))) {
@@ -61,7 +60,7 @@ export class RegistroComponent  implements OnInit {
     return !(control) || control.touched && control.hasError(type);
   }
 
-  //////////////////////////////////////////////////////// LASTNAME VALIDACIONES
+  //Lastname Validations
   lastnameValidator(control: AbstractControl) {
     const lastname = control.value;
     if (lastname && ( /[^a-zA-Z]/.test(lastname))) {
@@ -86,7 +85,7 @@ export class RegistroComponent  implements OnInit {
     return lastnameControl.touched && lastnameControl.hasError(errorType);
   }
 
-  //////////////////////////////////////////////////////// USERNAME VALIDACIONES
+  //Username Validations
   onUsernameInput() {
     const usernameControl = this.contactForm.controls['username'];
     usernameControl.markAsTouched();
@@ -107,7 +106,7 @@ export class RegistroComponent  implements OnInit {
     return usernameControl.touched && usernameControl.hasError(errorType);
   }
 
-  //////////////////////////////////////////////////////// PASSWORD VALIDACIONES
+  //Password Validations
   get password() {
     return this.contactForm.get('pass');
   }
@@ -133,7 +132,7 @@ export class RegistroComponent  implements OnInit {
     passwordControl.markAsTouched();
   }
 
-  //////////////////////////////////////////////////////// EMAIL VALIDACIONES
+  //Email Validations
   emailHasError(type: string) {
     const control = this.contactForm.get('email');
     return !(control) || control.touched && control.hasError(type);
@@ -157,7 +156,7 @@ export class RegistroComponent  implements OnInit {
     return null;
   }
 
-  async crearUser(){
+  async createUser(){
     const newUser: Users = {
       name: this.contactForm.value.name,
       lastname: this.contactForm.value.lastname,
@@ -176,7 +175,6 @@ export class RegistroComponent  implements OnInit {
       this.mensaje(message, "danger");
     }
   }
-
 
   async mensaje(mensaje:string, color: string){
     this.toast.create({

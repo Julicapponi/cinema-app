@@ -17,7 +17,7 @@
       <h1 size="large">¡We are very happy that you are here!</h1>
     </ion-toolbar>
   </ion-header>
-  <form (submit)="crearUser()" [formGroup]="contactForm">
+  <form (submit)="createUser()" [formGroup]="contactForm">
 
     <ion-row>
       <ion-col size="12" class="ion-no-margin ion-no-padding">
@@ -34,7 +34,7 @@
             <ion-text color="danger" class="margin-auto text-error" *ngIf="nameHasError('required')">Required
             </ion-text>
             <ion-text color="danger" class="margin-auto text-error"
-                      *ngIf="nameHasError('invalidName')">No special characters.
+                      *ngIf="nameHasError('invalidName')">No special characters
             </ion-text>
       </ion-col>
     </ion-row>
@@ -73,7 +73,7 @@
                   *ngIf="usernameHasError('required')">Required
         </ion-text>
         <ion-text color="danger" class="margin-auto text-error"
-                  *ngIf="usernameHasError('invalidUsername')">4 and 20 characters, and it must not contain special characters.
+                  *ngIf="usernameHasError('invalidUsername')">4 and 20 characters, and it must not contain special characters
         </ion-text>
       </ion-col>
     </ion-row>
@@ -94,7 +94,7 @@
                       *ngIf="passwordHasError('required')">Required
             </ion-text>
             <ion-text color="danger" class="margin-auto text-error"
-                      *ngIf="passwordHasError('invalidPassword')">At least one uppercase letter, one number, and a minimum of 8 characters.
+                      *ngIf="passwordHasError('invalidPassword')">At least one uppercase letter, one number, and a minimum of 8 characters
             </ion-text>
       </ion-col>
     </ion-row>
@@ -109,9 +109,9 @@
         </ion-item>
       </ion-col>
       <ion-col size="12" class="display-flex col-error-validators">
-        <ion-text color="danger" class="margin-auto text-error" *ngIf="emailHasError('required')" style="font-size: 1.1rem">Required.
+        <ion-text color="danger" class="margin-auto text-error" *ngIf="emailHasError('required')" >Required
         </ion-text>
-        <ion-text color="danger" class="margin-auto text-error" *ngIf="emailHasError('email')" style="font-size: 1.1rem">Not valid.
+        <ion-text color="danger" class="margin-auto text-error" *ngIf="emailHasError('email')" >Not valid
         </ion-text>
       </ion-col>
 
