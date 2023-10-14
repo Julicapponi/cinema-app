@@ -1,0 +1,127 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col class="ion-no-margin ion-no-padding center" [routerLink]="['/login']" [size]="1" >
+        <ion-icon name="chevron-back-outline"></ion-icon>
+      </ion-col>
+      <ion-col class="ion-no-margin ion-no-padding"  [size]="11" >
+        <p>Register</p>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding content-register">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <h1 size="large">¡We are very happy that you are here!</h1>
+    </ion-toolbar>
+  </ion-header>
+  <form (submit)="crearUser()" [formGroup]="contactForm">
+
+    <ion-row>
+      <ion-col size="12" class="ion-no-margin ion-no-padding">
+        <ion-item class="field">
+          <ion-input placeholder="Name" type="text" formControlName="name" (input)="onNameInput()"></ion-input>
+          <ion-icon *ngIf="nameHasError('required')" name="close-circle" color="danger"></ion-icon>
+          <ion-icon *ngIf="nameHasError('invalidName')" name="close-circle" color="danger"></ion-icon>
+          <ion-icon *ngIf="nameIsValid()" name="checkmark-circle" color="tertiary"></ion-icon>
+          <ion-icon *ngIf="nameIsInvalid() && !nameHasError('required') && !nameHasError('invalidName')"
+                    name="close-circle" color="danger"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="display-flex col-error-validators">
+            <ion-text color="danger" class="margin-auto text-error" *ngIf="nameHasError('required')">Required
+            </ion-text>
+            <ion-text color="danger" class="margin-auto text-error"
+                      *ngIf="nameHasError('invalidName')">No special characters.
+            </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" class="ion-no-margin ion-no-padding">
+        <ion-item class="field">
+          <ion-input placeholder="Lastname" type="text" (input)="onlastnameInput()" formControlName="lastname" ></ion-input>
+          <ion-icon *ngIf="lastnameHasError('required')" name="close-circle" color="danger"></ion-icon>
+          <ion-icon *ngIf="lastnameHasError('invalidName')" name="close-circle" color="danger"></ion-icon>
+          <ion-icon *ngIf="lastnameIsValid()" lastname="checkmark-circle" color="tertiary"></ion-icon>
+          <ion-icon *ngIf="lastnameIsInvalid() && !lastnameHasError('required') && !lastnameHasError('invalidlastname')"
+                    name="close-circle" color="danger"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="display-flex col-error-validators">
+        <ion-text color="danger" class="margin-auto text-error" *ngIf="lastnameHasError('required')">Required
+        </ion-text>
+        <ion-text color="danger" class="margin-auto text-error"
+                  *ngIf="lastnameHasError('invalidLastname')">No special characters.
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" class="ion-no-margin ion-no-padding">
+        <ion-item class="field">
+          <ion-input placeholder="Username" type="text" formControlName="username" (input)="onUsernameInput()"></ion-input>
+          <ion-icon *ngIf="usernameHasError('required')" name="close-circle" color="danger"></ion-icon>
+          <ion-icon *ngIf="usernameHasError('invalidUsername')" name="close-circle" color="danger"></ion-icon>
+          <ion-icon *ngIf="usernameIsValid()" name="checkmark-circle" color="tertiary"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="display-flex col-error-validators">
+        <ion-text color="danger" class="margin-auto text-error"
+                  *ngIf="usernameHasError('required')">Required
+        </ion-text>
+        <ion-text color="danger" class="margin-auto text-error"
+                  *ngIf="usernameHasError('invalidUsername')">4 and 20 characters, and it must not contain special characters.
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" class="ion-no-margin ion-no-padding">
+        <ion-item class="field">
+          <ion-input placeholder="Password" [type]="passwordVisible ? 'text' : 'password'"  formControlName="pass"></ion-input>
+          <ion-icon *ngIf="passwordHasError('required')" name="close-circle" color="danger" slot="end"></ion-icon>
+          <ion-icon *ngIf="passwordHasError('invalidPassword')" name="close-circle" color="danger" slot="end"></ion-icon>
+          <ion-icon *ngIf="passwordIsValid()" name="checkmark-circle" color="tertiary" slot="end"></ion-icon>
+          <ion-icon name="eye" slot="end" *ngIf="!passwordVisible" (click)="passwordVisible = true"></ion-icon>
+          <ion-icon name="eye-off" slot="end" *ngIf="passwordVisible" (click)="passwordVisible = false"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="display-flex col-error-validators">
+            <ion-text color="danger" class="margin-auto text-error"
+                      *ngIf="passwordHasError('required')">Required
+            </ion-text>
+            <ion-text color="danger" class="margin-auto text-error"
+                      *ngIf="passwordHasError('invalidPassword')">At least one uppercase letter, one number, and a minimum of 8 characters.
+            </ion-text>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12" class="ion-no-margin ion-no-padding">
+        <ion-item class="field">
+          <ion-input placeholder="Email" type="email" formControlName="email"></ion-input>
+          <ion-icon name="checkmark-circle" color="tertiary" *ngIf="emailIsValid()"></ion-icon>
+          <ion-icon name="close-circle" color="danger" *ngIf="emailHasError('required')"></ion-icon>
+          <ion-icon name="close-circle" color="danger" *ngIf="emailHasError('email')"></ion-icon>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12" class="display-flex col-error-validators">
+        <ion-text color="danger" class="margin-auto text-error" *ngIf="emailHasError('required')" style="font-size: 1.1rem">Required.
+        </ion-text>
+        <ion-text color="danger" class="margin-auto text-error" *ngIf="emailHasError('email')" style="font-size: 1.1rem">Not valid.
+        </ion-text>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <ion-col class="ion-no-margin ion-no-padding center" size="12">
+        <ion-button type="submit" shape="round" color="medium" class="center">Register</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

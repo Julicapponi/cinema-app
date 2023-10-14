@@ -1,0 +1,27 @@
+ion-input{
+  text-align: center;
+}
+
+ion-button{
+  width: 50%;
+}
+
+.content-register{
+  margin-top: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.field{
+  border-radius: 80px;
+  border: 2px solid black;
+  margin: 10px 30px 0px 30px;
+}
+
+.col-error-validators{
+}
+
+.text-error{
+  font-size: 0.9rem
+}
