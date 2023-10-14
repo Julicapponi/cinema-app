@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Platform, ToastController} from "@ionic/angular";
+import {Platform, PopoverController, ToastController} from "@ionic/angular";
 import {Users} from "../../clases/Users";
 import {Router} from "@angular/router";
 import {Storage} from "@ionic/storage-angular";
 import * as Constants from "../../constants";
+import {AvatarSelectorComponent} from "../../component/avatar-selector/avatar-selector.component";
 
 @Component({
   selector: 'app-login',
@@ -16,8 +17,20 @@ export class LoginPage implements OnInit {
   contactForm!: FormGroup;
   isLoadingLogin: boolean;
   passwordVisible = false;
-  constructor(private storage: Storage,private router: Router, private platform: Platform, private fb: FormBuilder, private toast: ToastController) {
+  recommendedAvatars: string[] = [
+    'https://ionicframework.com/docs/img/demos/avatar.svg',
+    'assets/images/logo-1.jpg',
+    'assets/images/logo-2.jpg',
+    'assets/images/logo-3.png'
+  ];
+
+  selectedAvatar: string = 'URL_OPCION_POR_DEFECTO';
+  isViewAvatars=false;
+  iconStateAvatar= "create";
+
+  constructor(private popoverController: PopoverController, private storage: Storage,private router: Router, private platform: Platform, private fb: FormBuilder, private toast: ToastController) {
     this.contactForm = this.initForm();
+    this.selectedAvatar = this.recommendedAvatars[0];
     this.isLoadingLogin = false;
   }
 
@@ -25,22 +38,11 @@ export class LoginPage implements OnInit {
     await this.storage.create();
   }
 
-
-
   initForm(): FormGroup {
     return this.fb.group({
       username: ['', [Validators.required]],
       pass: ['', [Validators.required]],
     });
-  }
-
-
-  abrirModal() {
-
-  }
-
-  setResult($event: any) {
-
   }
 
   async login() {
@@ -73,7 +75,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-
   async dialogMessage(message:string, color: string){
     this.toast.create({
       message: message,
@@ -83,5 +84,21 @@ export class LoginPage implements OnInit {
     }).then(toast => {
       toast.present();
     });
+  }
+
+  async openAvatarSelector() {
+    this.isViewAvatars = true;
+    if (this.iconStateAvatar.includes("create")){
+      this.iconStateAvatar = "close";
+    } else {
+      this.isViewAvatars = false;
+      this.iconStateAvatar = "create";
+    }
+  }
+
+  selectAvatar(avatarUrl: string) {
+    this.selectedAvatar = avatarUrl;
+    this.isViewAvatars = false;
+    this.iconStateAvatar = "create";
   }
 }

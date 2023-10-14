@@ -1,19 +1,24 @@
 <ion-content>
   <ion-row class="ion-no-padding content-login">
     <ion-col class="ion-no-padding ion-no-margin">
+      <ion-row  class="ion-no-padding ion-no-margin row-avatar-list">
+          <ion-col  *ngIf="isViewAvatars" class="ion-no-padding display-flex" >
+            <ion-row class="margin-auto ion-no-padding" *ngFor="let avatar of recommendedAvatars">
+              <img class="img-avatar-list margin-auto ion-no-padding" (click)="selectAvatar(avatar)"[src]="avatar"/>
+            </ion-row>
+          </ion-col>
 
+      </ion-row>
       <ion-row>
         <ion-col class="row-avatar center">
-          <ion-avatar id="present-alert" (click)="abrirModal()">
-            <img alt="Mi imagen personal" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          <ion-avatar>
+            <img alt="Image personal" class="" [src]="selectedAvatar" />
+            <ion-icon name="{{iconStateAvatar}}" (click)="openAvatarSelector()" class="icon-corner"></ion-icon>
           </ion-avatar>
-          <ion-alert
-            trigger="present-alert"
-            header="You are going to change your photo, do you accept?"
-            (didDismiss)="setResult($event)"
-          ></ion-alert>
         </ion-col>
       </ion-row>
+
+
       <form (submit)="login()" [formGroup]="contactForm" >
         <ion-row>
           <ion-col size="12" class="ion-no-margin ion-no-padding">
@@ -43,7 +48,7 @@
 
         <ion-row>
           <ion-col class="ion-no-margin ion-no-padding center" size="12">
-            <ion-button type="submit" shape="round" [color]="contactForm.valid ? 'success' : 'medium'" color="medium" class="center">Login</ion-button>
+            <ion-button class="button-login" type="submit" shape="round" [color]="contactForm.valid ? 'success' : 'medium'" color="medium" class="center">Login</ion-button>
           </ion-col>
         </ion-row>
       </form>
