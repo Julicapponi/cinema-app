@@ -1,11 +1,4 @@
-export interface Movie {
-  page: number;
-  next: string;
-  entries: number;
-  results: Result[];
-}
-
-interface Result {
+export interface Result {
   _id: string;
   id: string;
   primaryImage?: PrimaryImage;
@@ -14,6 +7,7 @@ interface Result {
   originalTitleText: TitleText;
   releaseYear: ReleaseYear;
   releaseDate?: ReleaseDate;
+  rate?:Rate;
 }
 
 interface ReleaseDate {
@@ -30,7 +24,7 @@ interface ReleaseYear {
 }
 
 interface TitleText {
-  text: string;
+  text?: string;
   __typename: string;
 }
 
@@ -46,7 +40,7 @@ interface PrimaryImage {
   id: string;
   width: number;
   height: number;
-  url: string;
+  url?: string;
   caption: Caption;
   __typename: string;
 }
@@ -54,4 +48,8 @@ interface PrimaryImage {
 interface Caption {
   plainText: string;
   __typename: string;
+}
+
+interface Rate {
+  points?: number;
 }
