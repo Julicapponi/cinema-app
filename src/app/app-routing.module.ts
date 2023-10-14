@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {RegistroComponent} from "./component/registro/registro.component";
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/principal',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {
@@ -16,21 +17,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/principal/principal.module').then( m => m.PrincipalPageModule)
   },
   {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },
-  {
     path: 'detalle-pelicula',
     loadChildren: () => import('./pages/detalle-pelicula/detalle-pelicula.module').then( m => m.DetallePeliculaPageModule)
   },
   {
-    path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
-  },
-  {
     path: 'change-pass',
     loadChildren: () => import('./pages/change-pass/change-pass.module').then( m => m.ChangePassPageModule)
-  }
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  { path: 'registro', component: RegistroComponent },
 ];
 
 @NgModule({
