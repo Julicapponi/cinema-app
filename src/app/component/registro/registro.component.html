@@ -13,8 +13,8 @@
 
 <ion-content class="ion-no-padding content-register">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <h1 size="large">¡We are very happy that you are here!</h1>
+    <ion-toolbar class="display-flex">
+      <h1 size="large" class="margin-auto title-register"> ¡We are very happy that you are here!</h1>
     </ion-toolbar>
   </ion-header>
   <form (submit)="createUser()" [formGroup]="contactForm">
@@ -119,7 +119,7 @@
 
     <ion-row>
       <ion-col class="ion-no-margin ion-no-padding center" size="12">
-        <ion-button type="submit" shape="round" color="medium" class="center">Register</ion-button>
+        <ion-button [color]="contactForm.valid ? 'success' : 'medium'" type="submit" shape="round" color="medium" class="center">Register</ion-button>
       </ion-col>
     </ion-row>
   </form>
