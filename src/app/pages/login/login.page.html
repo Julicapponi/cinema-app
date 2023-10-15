@@ -11,9 +11,9 @@
       </ion-row>
       <ion-row>
         <ion-col class="row-avatar center">
-          <ion-avatar>
+          <ion-avatar (click)="openAvatarSelector()">
             <img alt="Image personal" class="" [src]="selectedAvatar" />
-            <ion-icon name="{{iconStateAvatar}}" (click)="openAvatarSelector()" class="icon-corner"></ion-icon>
+            <ion-icon name="{{iconStateAvatar}}"  class="icon-corner"></ion-icon>
           </ion-avatar>
         </ion-col>
       </ion-row>

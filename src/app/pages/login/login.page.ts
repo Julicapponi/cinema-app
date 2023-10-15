@@ -58,19 +58,22 @@ export class LoginPage implements OnInit {
         for (const user of storedUsers) {
           if (usernameInput === user.username && passInput === user.pass) {
             const message = "User logged"
-            this.dialogMessage(message, "success")
+            this.dialogMessage(message, "success");
             this.router.navigate(['/principal'], {replaceUrl: true});
             return;
           } else {
             const message = "User or pass invalid"
-            this.dialogMessage(message, "danger")
+            this.dialogMessage(message, "danger");
             continue;
           }
         }
+      } else {
+        const message = "User or pass invalid"
+        this.dialogMessage(message, "danger");
       }
     } else {
       const message = "User or pass invalid"
-      this.dialogMessage(message, "danger")
+      this.dialogMessage(message, "danger");
     }
   }
 
