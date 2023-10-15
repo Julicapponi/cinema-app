@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 import {MoviesService} from "../../services/movies.service";
 import {Result} from "../../clases/MovieResult";
 import * as Constants from '../../constants';
+import {catchError, throwError} from "rxjs";
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.page.html',
@@ -25,7 +26,7 @@ export class PrincipalPage implements OnInit {
   moviesStorage: Result[] = [];
 
    constructor(private moviesService: MoviesService, private storage: Storage, private router: Router, private platform: Platform, private fb: FormBuilder, private toast: ToastController) {
-      this.movies=[];
+     console.log(this.movies);
   }
 
   async ngOnInit() {
@@ -44,15 +45,41 @@ export class PrincipalPage implements OnInit {
 
   getMoviesApi() {
     this.loadingMovies = true;
-    this.moviesService.getMovies().subscribe(async movies => {
-      if (Array.isArray(movies.results)) {
-        this.movies = movies.results;
-      }
-      // Set movies in localStorage
-      this.storage.set(Constants.KeyMovies, this.movies);
-      // get movies localStorage
-      this.moviesStorage = await this.storage.get(Constants.KeyMovies);
-      this.loadingMovies = false;
+    this.moviesService.getMovies()
+      .pipe(catchError(error => {
+          this.loadingMovies = false;
+          console.error('Error get movies:', error);
+          let message = "An error occurred while getting movies. Please try again.";
+          this.dialogMessage(message, "danger");
+          return throwError(message);
+        })
+      )
+      .subscribe(async movies => {
+        if (Array.isArray(movies.results)) {
+          this.movies = movies.results;
+          this.storage.set(Constants.KeyMovies, this.movies)
+            .then(() => {
+              this.loadingMovies = false;
+            })
+            .catch(error => {
+              let message = 'Error saving data ';
+              console.error(message, error);
+              this.dialogMessage(message, "danger");
+            });
+        }
+        this.moviesStorage = await this.storage.get(Constants.KeyMovies);
+        this.loadingMovies = false;
+      });
+  }
+
+  async dialogMessage(message:string, color: string){
+    this.toast.create({
+      message: message,
+      color: color,
+      duration: 2000,
+      position: 'bottom',
+    }).then(toast => {
+      toast.present();
     });
   }
 
