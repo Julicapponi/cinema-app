@@ -28,12 +28,9 @@
 
 
   <ion-item-options side="end">
-    <ion-item-option (click)="goDetailMovie(movie)">
+    <ion-item-option [routerLink]="['/detalle-pelicula', movie.id]">
       <p>Edit</p>
       <ion-icon slot="icon-only" name="pencil"></ion-icon>
-      <a>
-        Edit Movie
-      </a>
     </ion-item-option>
   </ion-item-options>
 

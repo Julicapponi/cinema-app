@@ -3,6 +3,8 @@ import {Movie} from "../../clases/Movie";
 import {Result} from "../../clases/MovieResult";
 import {Storage} from "@ionic/storage-angular";
 import {NavigationExtras, Router} from "@angular/router";
+import {NavController, PopoverController} from "@ionic/angular";
+import {MoviePopoverComponent} from "../movie-popover/movie-popover.component";
 
 @Component({
   selector: 'app-card-pelicula',
@@ -13,8 +15,8 @@ export class CardPeliculaComponent  implements OnInit {
   mov: Result[] = [];
   @Input() movie!: Result;
   pointsInsert!: number;
-  constructor(private router: Router, private storage: Storage) {
-
+  constructor(public navCtrl: NavController, private router: Router, private storage: Storage) {
+    console.log(this.movie);
   }
 
   ngOnInit() {
@@ -39,12 +41,12 @@ export class CardPeliculaComponent  implements OnInit {
     });
   }
 
-  goDetailMovie(movie: Result) {
-      const navigationExtras: NavigationExtras ={
-        state: {
-          movie: movie
-        }
-      }
-      this.router?.navigate(['/detalle-pelicula'], navigationExtras);
+  async goDetailMovie(movie: Result) {
+    this.navCtrl.navigateForward('/detalle-pelicula', {
+      state: {
+        movie: movie,
+      },
+    });
   }
+
 }

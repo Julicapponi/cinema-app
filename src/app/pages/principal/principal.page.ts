@@ -28,8 +28,7 @@ export class PrincipalPage implements OnInit {
    constructor(private moviesService: MoviesService, private storage: Storage, private router: Router, private platform: Platform, private fb: FormBuilder, private toast: ToastController) {
      console.log(this.movies);
   }
-
-  async ngOnInit() {
+  async ionViewWillEnter() {
     await this.storage.create();
     this.moviesStorage = await this.storage.get(Constants.KeyMovies);
     // If there is data loaded, I do not consume the api
@@ -41,9 +40,12 @@ export class PrincipalPage implements OnInit {
       await this.getMoviesApi();
     }
   }
+  async ngOnInit() {
+
+  }
 
 
-  getMoviesApi() {
+   getMoviesApi() {
     this.loadingMovies = true;
     this.moviesService.getMovies()
       .pipe(catchError(error => {
