@@ -4,7 +4,6 @@ import {Result} from "../../clases/MovieResult";
 import {Storage} from "@ionic/storage-angular";
 import {NavigationExtras, Router} from "@angular/router";
 import {NavController, PopoverController} from "@ionic/angular";
-import {MoviePopoverComponent} from "../movie-popover/movie-popover.component";
 
 @Component({
   selector: 'app-card-pelicula',
