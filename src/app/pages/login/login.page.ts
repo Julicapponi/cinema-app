@@ -57,7 +57,8 @@ export class LoginPage implements OnInit {
       if (storedUsers) {
         for (const user of storedUsers) {
           if (usernameInput === user.username && passInput === user.pass) {
-            const message = "User logged"
+            await this.storage.set(Constants.LOGGED_USER, user);
+            const message = "User logged";
             this.dialogMessage(message, "success");
             this.router.navigate(['/principal'], {replaceUrl: true});
             return;
