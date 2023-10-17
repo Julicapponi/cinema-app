@@ -6,12 +6,13 @@
       </ion-col>
       <ion-col class="ion-no-margin ion-no-padding center"  [size]="8" >
       </ion-col>
-      <ion-col class="ion-no-margin ion-no-padding center"  [size]="1.5" (click)="deleteMovie()" >
-        <ion-icon name="trash" ></ion-icon>
+      <ion-col class="ion-no-margin ion-no-padding center"  [size]="1.5"  >
+        <ion-icon name="trash" (click)="deleteMovie()"></ion-icon>
       </ion-col>
       <ion-alert trigger="present-alert" class="custom-alert" header="Are you sure delete?" [buttons]="alertButtons"></ion-alert>
       <ion-col class="ion-no-margin ion-no-padding center"  [size]="1.5" >
-        <ion-icon *ngIf="!isModeEdit" (click)="editPelicula()" name="pencil-outline"></ion-icon>
+        <ion-icon  *ngIf="!isModeEdit" (click)="editPelicula()" name="pencil-outline"></ion-icon>
+        <ion-icon  *ngIf="isModeEdit" (click)="confirmEdit()" [color]="'success'" name="checkmark-circle-outline"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-toolbar>
@@ -20,7 +21,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title class="ion-no-padding ion-margin-start" size="large">{{movie?.titleText?.text}}</ion-title>
+      <ion-input type="text" [ngClass]="isModeEdit?'input-mode-edit':'input'"  [readonly]="!isModeEdit" value="{{movie?.titleText?.text}}" (ionChange)="onTitleChanged($event)"></ion-input>
     </ion-toolbar>
   </ion-header>
   <ion-row>
@@ -42,15 +43,10 @@
           </ion-icon>
         </ion-row>
     </ion-col>
-    <ion-col class="center-right ion-padding-end" [size]="6">
+    <ion-col class="ion-padding-end" [size]="6">
       <ion-row >
-        <p class="ion-no-padding ion-no-margin">{{movie?.releaseYear?.year}}</p>
+        <ion-input type="number" [ngClass]="isModeEdit?'input-mode-edit':'input'" [readonly]="!isModeEdit" style="text-align: right" value="{{movie?.releaseYear?.year}}" (click)="modeEditVerification()" (ionChange)="onYearChanged($event)"></ion-input>
       </ion-row>
     </ion-col>
   </ion-row>
-  <ion-fab *ngIf="isModeEdit" vertical="bottom" horizontal="center" slot="fixed">
-    <ion-fab-button (click)="confirmEdit" class="ion-align-end">
-      <ion-icon name="checkmark"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

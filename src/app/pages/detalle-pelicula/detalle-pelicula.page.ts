@@ -24,7 +24,8 @@ export class DetallePeliculaPage implements OnInit {
       cssClass: 'alert-button-confirm',
     },
   ];
-   isModeEdit=false;
+  isModeEdit = false;
+  editPending = false;
 
   constructor( public alertController: AlertController, private storage: Storage, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private toast: ToastController) {
 
@@ -65,11 +66,37 @@ export class DetallePeliculaPage implements OnInit {
     });
   }
 
+  onYearChanged(event:any) {
+    if (this.movie && event.detail!=null) {
+      this.editPending = true;
+      this.movie.releaseYear.year = event.detail.value;
+    }
+  }
+
+  onTitleChanged(event:any) {
+    if (this.movie && event.detail!=null) {
+      this.editPending = true;
+      this.movie.titleText.text = event.detail.value;
+    }
+  }
+
   confirmEdit() {
-    this.isModeEdit = false;
+    if (this.indexMovie >= 0 && this.indexMovie < this.movies.length) {
+      this.storage.set('movies', this.movies).then(() => {
+        this.isModeEdit = false;
+        this.editPending = false;
+        const message = "The changes have been applied correctly.";
+        this.dialogMessage(message, "success");
+      });
+    }
   }
 
   goBack() {
+    if(this.isModeEdit){
+      const message = "Confirm changes before returning";
+      this.dialogMessage(message, "warning");
+      return;
+    }
     this.navCtrl.navigateBack("/principal");
   }
 
@@ -78,7 +105,6 @@ export class DetallePeliculaPage implements OnInit {
     const message = "Are you sure you want to delete this movie?";
     this.showDialog(title, message);
   }
-
 
   async showDialog(title: string, message: string) {
     const alert = await this.alertController.create({
@@ -118,5 +144,11 @@ export class DetallePeliculaPage implements OnInit {
     });
   }
 
+  modeEditVerification() {
+    if(!this.isModeEdit){
+      const message = "To edit this field, select edit mode.";
+      this.dialogMessage(message, "warning");
+    }
+  }
 }
 
