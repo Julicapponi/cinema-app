@@ -12,13 +12,12 @@
 </ion-header>
 
 <ion-content class="ion-no-padding content-register">
-  <ion-header collapse="condense">
-    <ion-toolbar class="display-flex">
-      <h1 size="large" class="margin-auto title-register"> ¡We are very happy that you are here!</h1>
-    </ion-toolbar>
-  </ion-header>
-  <form (submit)="createUser()" [formGroup]="contactForm">
 
+  <ion-row class="display-flex ion-margin">
+    <h1 size="large" class="margin-auto title-register"> ¡We are very happy that you are here!</h1>
+  </ion-row>
+
+  <form (submit)="createUser()" [formGroup]="contactForm">
     <ion-row>
       <ion-col size="12" class="ion-no-margin ion-no-padding">
         <ion-item class="field">
