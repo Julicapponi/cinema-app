@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Storage} from "@ionic/storage-angular";
 import * as Constants from "./constants";
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
     { title: 'Movies', url: '/principal', icon: 'videocam' },
   ];
    userLogged: any;
-  constructor(private storage: Storage) {
+  constructor(private router: Router, private storage: Storage) {
   }
 
   async ngOnInit() {
@@ -21,5 +22,10 @@ export class AppComponent implements OnInit {
   async menuOpened() {
     this.userLogged = await this.storage.get(Constants.LOGGED_USER);
     console.log(this.userLogged);
+  }
+
+  async logout() {
+    await this.storage.clear();
+    await this.router.navigate(['/login'], {replaceUrl: true});
   }
 }
