@@ -25,6 +25,17 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('../src/assets/fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-MediumItalic';
+  src: url('../src/assets/fonts/Roboto-MediumItalic.ttf');
+}
+
+
 h1 {
   font-size: 20px;
 }
