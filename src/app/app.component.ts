@@ -25,7 +25,9 @@ export class AppComponent implements OnInit {
   }
 
   async logout() {
-    await this.storage.clear();
+
+    await this.storage.remove(Constants.LOGGED_USER);
+    await this.storage.remove(Constants.KeyMovies);
     await this.router.navigate(['/login'], {replaceUrl: true});
   }
 }
